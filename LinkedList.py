@@ -143,10 +143,6 @@ class LinkedList():
 
 		current.value = value
 
-
-	
-
-
 list_test = LinkedList()
 list_test.add_all(0,[1,4,5,2,45])
 list_test.add(0,111)
