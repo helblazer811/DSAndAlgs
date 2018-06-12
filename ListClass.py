@@ -53,14 +53,6 @@ class ListClass():
 					out = out + b[len(b)-b_cnt:]
 				return out
 	
-			if(len(_list)==2):
-				#swap if out of order
-				if(_list[0]>_list[1]):
-					tmp = _list[0]
-					_list[0]=_list[1]
-					_list[1]=tmp
-				return _list
-
 			if(len(_list)==1):
 				return _list
 
@@ -87,6 +79,6 @@ list_test.selection_sort()
 print(list_test.list)
 
 list_test = ListClass()
-list_test.set_list([0,8,3,56,6,48,1,3])
+list_test.set_list([0,8,3,56,6,48,1,3,7])
 list_test.merge_sort(list_test.list)
 print(list_test.list)
