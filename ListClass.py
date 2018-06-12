@@ -32,6 +32,7 @@ class ListClass():
 			tmp = self.list[i]
 			self.list[i] = self.list[min_index]
 			self.list[min_index] = tmp
+
 	def merge_sort(self,_list):
 
 		def sort(_list):
@@ -47,6 +48,7 @@ class ListClass():
 					else:
 						out.append(b[len(b)-b_cnt])
 						b_cnt -= 1
+
 				if(a_cnt>0):
 					out = out + a[len(a)-a_cnt:]
 				if(b_cnt>0):
@@ -61,6 +63,14 @@ class ListClass():
 			return merge(a,b)
 
 		self.list = sort(_list)
+
+	def bubble_sort(self):
+		for i in range(len(self.list)):
+			for j in xrange(len(self.list)-1,i+1,-1):
+				if(self.list[j]<self.list[j-1]):
+					tmp = self.list[j]
+					self.list[j]=self.list[j-1]
+					self.list[j-1]=tmp
 
 	def quick_sort(self):
 		pass
@@ -81,4 +91,9 @@ print(list_test.list)
 list_test = ListClass()
 list_test.set_list([0,8,3,56,6,48,1,3,7])
 list_test.merge_sort(list_test.list)
+print(list_test.list)
+
+list_test = ListClass()
+list_test.set_list([0,8,3,56,6,48,1,3,7])
+list_test.bubble_sort()
 print(list_test.list)
