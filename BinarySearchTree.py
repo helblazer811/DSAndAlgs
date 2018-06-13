@@ -141,20 +141,20 @@ class BinaryTree():
 
 
 	def contains(self,value):
-		queue = BFSQueue()
+		if(self.root == None):
+			return False
 
-		queue.enqueue(self.root)
+		greater_than = True if value>self.root.value else False
+		current_node = self.root
 
-		while(queue.length != 0):
-			val = queue.dequeue()
-			if(val.value == value):
+		next_node = self.root.left if not greater_than else self.root.right
+		while next_node!=None:
+			if(current_node.value == value):
 				return True
-			if(val.left != None):
-				queue.enqueue(val.left)
-			if(val.right != None):
-				queue.enqueue(val.right)
-
-		return False
+			current_node = next_node
+			next_node = current_node.left if not greater_than else current_node.right
+		
+		return current_node.value == value
 
 	#removes all elements with the given value
 	def remove(self,value):
@@ -191,12 +191,6 @@ class BinaryTree():
 				else:
 					queue.enqueue(val.right)
 
-	def bfs(self):
-		pass
-
-	def dfs(self):
-		pass
-
 	#performs the avl algorithm to balance the binary tree
 	def avl_balance(self):
 		pass
@@ -209,6 +203,7 @@ bin_tree.insert(11)
 bin_tree.insert(8)
 bin_tree.insert(17)
 bin_tree.insert(30)
+print(bin_tree.contains(17))
 
 print(bin_tree.get_all_df())
 print(bin_tree.remove(17))
