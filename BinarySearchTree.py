@@ -11,6 +11,21 @@ class Node():
 		self.left = left
 		self.right = right
 
+class BFSQueue():
+
+	def __init__(self):
+		self.list = []
+		self.length = 0
+
+	def enqueue(self,value):
+		self.list.append(value)
+		self.length += 1
+
+	def dequeue(self):
+		val = self.list[0]
+		self.length -= 1
+		del self.list[0]
+		return val 
 
 class BinaryTree():
 
@@ -37,29 +52,16 @@ class BinaryTree():
 
 	def add_all(self,values):
 		if(self.root == None):
-			pass		
+			self.root = Node(values[0],None,None)
+
+		for i in range(len(values)):
+
+			self.insert(values[i])
 
 	#gets the tree in left to right breadth first manner 
 	def get_all_bf(self):
 		if(self.root == None):
 			return []
-
-		class BFSQueue():
-
-			def __init__(self):
-				self.list = []
-				self.length = 0
-
-			def enqueue(self,value):
-				self.list.append(value)
-				self.length += 1
-
-			def dequeue(self):
-				val = self.list[0]
-				self.length -= 1
-				del self.list[0]
-				return val 
-
 
 		queue = BFSQueue()
 		def bfs(root):
@@ -100,24 +102,94 @@ class BinaryTree():
 
 		return inorder(self.root)
 
-	def get(self, order):
-		pass
-
 	def size(self):
-		pass
+		if(self.root == None):
+			return []	
+
+		#this function returns a list of the inorder elements of a binary search tree
+		def inorder(root):
+			left = []
+			right = []
+
+			if(root.left != None):
+				left = inorder(root.left)
+
+			if(root.right != None):
+				right = inorder(root.right)
+				
+			return left + [root.value] + right
+
+		return len(inorder(self.root))
 
 	def find_min(self):
-		pass
+		
+		current = self.root
+
+		while current.left != None:
+			current = current.left
+
+		return current.value
 
 	def find_max(self):
-		pass
+		
+		current = self.root
+		
+		while current.right != None:
+			current = current.right
 
-	def contains(self):
-		pass
+		return current.value
+
+
+	def contains(self,value):
+		queue = BFSQueue()
+
+		queue.enqueue(self.root)
+
+		while(queue.length != 0):
+			val = queue.dequeue()
+			if(val.value == value):
+				return True
+			if(val.left != None):
+				queue.enqueue(val.left)
+			if(val.right != None):
+				queue.enqueue(val.right)
+
+		return False
 
 	#removes all elements with the given value
 	def remove(self,value):
-		pass
+		queue = BFSQueue()
+
+		queue.enqueue(self.root)
+
+		while(queue.length != 0):
+			val = queue.dequeue()
+
+			if(val.left != None):
+				if(val.left.value == value):
+					if(val.left.left != None):
+						val.left.value = val.left.left.value
+						val.left.left = None
+					elif(val.left.right != None):
+						val.left.value = val.left.right.value
+						val.left.right = None
+					else:
+						val.left = None
+				else:
+					queue.enqueue(val.left)
+
+			if(val.right != None):
+				if(val.right.value == value):
+					if(val.right.left != None):
+						val.right.value = val.right.left.value
+						val.right.left = None
+					elif(val.right.right != None):
+						val.right.value = val.right.right.value
+						val.right.right = None
+					else:
+						val.right = None
+				else:
+					queue.enqueue(val.right)
 
 	def bfs(self):
 		pass
@@ -139,4 +211,5 @@ bin_tree.insert(17)
 bin_tree.insert(30)
 
 print(bin_tree.get_all_df())
+print(bin_tree.remove(17))
 print(bin_tree.get_all_bf())
