@@ -42,6 +42,47 @@ class BinaryTree():
 	#gets the tree in left to right breadth first manner 
 	def get_all_bf(self):
 		if(self.root == None):
+			return []
+
+		class BFSQueue():
+
+			def __init__(self):
+				self.list = []
+				self.length = 0
+
+			def enqueue(self,value):
+				self.list.append(value)
+				self.length += 1
+
+			def dequeue(self):
+				val = self.list[0]
+				self.length -= 1
+				del self.list[0]
+				return val 
+
+
+		queue = BFSQueue()
+		def bfs(root):
+			vals = []
+			queue.enqueue(root)
+
+			while(queue.length != 0):
+				val = queue.dequeue()
+				vals.append(val.value)
+				
+				if(val.left != None):
+					queue.enqueue(val.left)
+
+				if(val.right != None):
+					queue.enqueue(val.right)
+
+			return vals
+
+		return bfs(self.root)
+
+	#gets the tree in left to right depth first manner. This should be analagous to 
+	def get_all_df(self):
+		if(self.root == None):
 			return []	
 
 		#this function returns a list of the inorder elements of a binary search tree
@@ -58,10 +99,6 @@ class BinaryTree():
 			return left + [root.value] + right
 
 		return inorder(self.root)
-
-	#gets the tree in left to right depth first manner. This should be analagous to 
-	def get_all_df(self):
-		pass
 
 	def get(self, order):
 		pass
@@ -101,4 +138,5 @@ bin_tree.insert(8)
 bin_tree.insert(17)
 bin_tree.insert(30)
 
+print(bin_tree.get_all_df())
 print(bin_tree.get_all_bf())
