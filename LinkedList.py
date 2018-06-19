@@ -1,9 +1,5 @@
 class Node():
 
-		def __init__(self):
-			self.value = None
-			self.next = None
-
 		def __init__(self,value,next):
 			self.value = value
 			self.next = next
@@ -14,24 +10,10 @@ class LinkedList():
 		self.head = None
 		self.length = 0
 
-	#adds value to the end of the linked list
-	def add(self,value):
-		if(self.head == None):#empty list
-			self.head = Node(value,None)
-			self.length += 1
-			return
-
-		#iterate to the end
-		current = self.head
-		while current.next != None:
-			current = current.next
-
-		current.next = Node(value,None)
-		self.length += 1
-		return
-
 	#adds value at index
-	def add(self,index,value):
+	def add(self,value,index=None):
+		if(index == None):
+			index = self.length
 		if(index > self.length):
 			print("index too high value added to end of list")
 			index = self.length
@@ -133,7 +115,7 @@ class LinkedList():
 		return _list
 
 	#sets value at index
-	def set(self,index,value):
+	def set(self,value,index):
 		current_index = 0
 		current = self.head
 
@@ -145,15 +127,15 @@ class LinkedList():
 
 list_test = LinkedList()
 list_test.add_all(0,[1,4,5,2,45])
-list_test.add(0,111)
+list_test.add(111,0)
 print(list_test.get_all())
 list_test.add_all(0,[1,4,5,2,45])
 
 print(list_test.get_all())
-list_test.add(3,17)
+list_test.add(17,0)
 print(list_test.get_all())
-list_test.set(4,19)
-list_test.add(0,14)
+list_test.set(19,4)
+list_test.add(14,0)
 print(list_test.get_all())
 print(list_test.contains(4))
 print(list_test.length)
